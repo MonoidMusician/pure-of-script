@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+// Splice `process.argv`
+//       [
+//         $(which node),
+//         `${ROOT}/scripts/main`,
+//         $(which pure-of-script), // or whatever shebang
+//         `${YOUR}.purescript`,
+//         ...script_args
+//       ]
+// to look like
+//       [
+//         $(which pure-of-script), // or whatever shebang
+//         `${YOUR}.purescript`,
+//         ...script_args
+//       ]
+// to pretend that the PureScript source is the called script (via the shebang)
+process.argv.splice(0, 2);
+
+// Call the compiled `Main` module
+import("../output/Main/index.js").then(Main => Main.main());

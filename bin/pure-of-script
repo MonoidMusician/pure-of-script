@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+################################################################################
+# `$ROOT/pure-of-script/bin/pure-of-script`                                    #
+################################################################################
+
+# This script is intended for use as a shebang like this:
+#!/usr/bin/env pure-of-script
+
+# Symlink it into `$PATH`, or add `pure-of-script/bin` to `$PATH`
+
+# This script lives in a `pure-of-script` project located at `$ROOT`
+ROOT="$(dirname "$(dirname "$(realpath "$0")")")"
+# Helper scripts live here
+SCRIPTS="$ROOT/scripts"
+
+TIMINGS="$ROOT/stage/timings"
+rm "$TIMINGS"/*.time
+FMT="$(cat "$TIMINGS/fmt.txt")"
+# Better to do it as a function here than use `"$SCRIPTS/time"` each time
+function TIME {
+  if [ $# -gt 1 ]; then
+    "${@:2}"
+  fi
+  date +"$FMT" > "$TIMINGS/$1.time"
+}
+
+chmod +x "$SCRIPTS"/*
+
+set -o noglob
+
+TIME init
+TIME make    "$SCRIPTS/buffer" make output/PureOfScript/bundle.js
+TIME prepare "$SCRIPTS/pure-of-script" "$0" "$@"
+TIME sources "$SCRIPTS/buffer" make stage/sources.txt
+TIME build   "$SCRIPTS/buffer" make output/Main/index.js
+TIME run     "$SCRIPTS/main" "$0" "$@"
+# TIME total
+"$SCRIPTS/timings"

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# use like
+# scripts/watch-dev ./example.purescript 1 3 "4 5"
+
+ROOT="$(dirname "$(dirname "$0")")"
+# but who will watch the watcher ;_;
+watchexec -w "$ROOT/watch.txt" --shell none -r -- \
+  watchexec --filter-file "$ROOT/watch.txt" --shell none -- \
+    "$@"

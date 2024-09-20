@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(dirname "$(dirname "$0")")"
+ln -s "pure-of-script" "$ROOT/bin/$1"
+ln -s "$1" "$ROOT/bin/$1-dev"

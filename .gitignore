@@ -1,0 +1,7 @@
+# PureScript/spago ignores
+/node_modules/
+/output/
+/output-es/
+/.psc*
+/.purs*
+/.spago

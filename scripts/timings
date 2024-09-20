@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+const path = require("node:path");
+const fs = require("node:fs");
+const root = path.dirname(path.dirname(process.argv[1]));
+process.chdir(path.join(root, "stage", "timings"));
+const suffix = ".time";
+const times = fs.readdirSync(".").filter(s => s.endsWith(suffix)).map(s => s.substring(0, s.length-suffix.length));
+if (times.length < 2) process.exit(0);
+const timestamps = times.map(name => ({
+  name, t: fs.statSync(name+suffix).mtimeMs
+})).sort(({t:t1}, {t:t2}) => t1-t2);
+const nameLen = Math.max(...timestamps.map(({name}) => name.length));
+const timings = timestamps.flatMap(({ name, t }, i) =>
+  !i ? [] : [{ name: (name+":").padEnd(nameLen+1, " "), d: String(Math.ceil(t - timestamps[i-1].t)) }]
+);
+const dLen = Math.max(...timings.map(({d}) => d.length));
+for (const { name, d } of timings) {
+  console.log(`${name} ${d.padStart(dLen, " ")}ms`);
+}
+

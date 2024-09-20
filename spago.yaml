@@ -1,0 +1,83 @@
+package:
+  name: pure-of-script
+  dependencies:
+    - console
+    - dodo-printer
+    - effect
+    - language-cst-parser
+    - node-child-process
+    - node-fs
+    - node-process
+    - prelude
+  test:
+    main: Test.Main
+    dependencies: []
+workspace:
+  packageSet:
+    registry: 46.2.0
+  extraPackages:
+    dodo-printer:
+      git: https://github.com/natefaubion/purescript-dodo-printer
+      ref: v2.2.1
+      dependencies:
+        - "aff"
+        - "ansi"
+        - "arrays"
+        - "avar"
+        - "console"
+        - "control"
+        - "effect"
+        - "either"
+        - "exceptions"
+        - "foldable-traversable"
+        - "integers"
+        - "lists"
+        - "maybe"
+        - "minibench"
+        - "newtype"
+        - "node-buffer"
+        - "node-child-process"
+        - "node-fs"
+        - "node-os"
+        - "node-path"
+        - "node-process"
+        - "node-streams"
+        - "parallel"
+        - "partial"
+        - "prelude"
+        - "safe-coerce"
+        - "strings"
+        - "tuples"
+    language-cst-parser:
+      git: https://github.com/natefaubion/purescript-language-cst-parser
+      ref: v0.14.0
+      dependencies:
+        - "arrays"
+        - "console"
+        - "const"
+        - "control"
+        - "effect"
+        - "either"
+        - "enums"
+        - "foldable-traversable"
+        - "free"
+        - "functions"
+        - "functors"
+        - "identity"
+        - "integers"
+        - "lazy"
+        - "lists"
+        - "maybe"
+        - "newtype"
+        - "node-process"
+        - "numbers"
+        - "ordered-collections"
+        - "partial"
+        - "prelude"
+        - "st"
+        - "strings"
+        - "transformers"
+        - "tuples"
+        - "typelevel-prelude"
+        - "unfoldable"
+        - "unsafe-coerce"

@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# A simple script to run a command, capturing stdout+stderr to display only if
+# the command fails
+
+# Create a unique temp file name
+TMP=$(mktemp)
+# Redirect stdout and stderr to the temp file
+env "$@" >"$TMP" 2>&1
+STATUS=$?
+if [ "$STATUS" == "0" ]; then
+  rm "$TMP"
+else
+  # `cat` the temp file to stderr if the command failed
+  cat "$TMP" 1>&2
+  rm "$TMP"
+fi
+exit "$STATUS"

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -x
+
+# TODO: toolchains, envs, stuff
+
+spago --version
+spaghetto --version
+purs --version
+git --version
+bash --version

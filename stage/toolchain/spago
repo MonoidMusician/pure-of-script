@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# sowwy, this will change, i just don't have spago installed globally rn
+if [ -f "$(dirname "$0")/../../../spago/bin/bundle.js" ]; then
+  node "$(dirname "$0")/../../../spago/bin/bundle.js" "$@"
+elif [ -f "$(which spago)" ]; then
+  "$(which spago)" "$@"
+else
+  echo "No spago found, check \$PATH, etc."
+  exit 1
+fi

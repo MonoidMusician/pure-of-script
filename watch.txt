@@ -1,0 +1,8 @@
+bin/pure-of-script
+src/PureOfScript.purs
+Makefile
+**/*.purescript
+scripts/**
+spago.lock
+spago.yaml
+stage/toolchain/*
